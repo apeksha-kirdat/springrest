@@ -2,8 +2,14 @@ package com.springrest.springrest.entities;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 
@@ -11,23 +17,34 @@ import javax.persistence.Id;
 public class User {
 
 	@Id
-	public Long userId;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "userId", updatable = false, nullable = false)
+	public String userId;
 	public String name;
-	public String email;
-	public String role;
+	public String gender;
+	public String email;			
+	public String role="student";
+	public String status="INACTIVE";
+	public int age;
 	public Date last_login_at;
+	@CreationTimestamp
 	public Date created_at;
+	@UpdateTimestamp
 	public Date updated_at;
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public User(Long userId,String name, String email, String role) {
+	public User(String userId,String name, String email, String status, int age) {
 		super();
 		this.userId=userId;
 		this.name = name;
 		this.email = email;
-		this.role = role;
+		this.role = status;
+		this.age=age;
 		//this.last_login_at = last_login_at;
 		//this.created_at = created_at;
 		//this.updated_at = updated_at;
@@ -73,11 +90,29 @@ public class User {
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
 }

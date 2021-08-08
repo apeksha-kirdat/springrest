@@ -1,45 +1,44 @@
 package com.springrest.springrest.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springrest.springrest.dao.UserDao;
 import com.springrest.springrest.entities.User;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	public List<User> list;
+	//public List<User> list;
+	@Autowired
+	private UserDao userdao; 
 	
 	public UserServiceImpl() {
-		list= new 	ArrayList<>();
+		/*list= new 	ArrayList<>();
 		list.add(new User(123L,"ABC","abc@gmail.com","admin"));
 		list.add(new User(564L,"XYZ","xyz@gmail.com","admin"));
-		list.add(new User(900L,"Pqr","pqr@gmail.com","admin"));
+		list.add(new User(900L,"Pqr","pqr@gmail.com","admin"));*/
+		//userdao.findAll();
 	}		
-	
-	@Override
-	public List<User> getUsers() {
-				return list;
-	}
 
 	@Override
 	public User getUser(long userId) {
-		User u=null;
-		for(User user:list) {			
-			if(user.getUserId()== userId) {
-				u=user;
-				break;
-			}
-		}
-		return u;
+		return userdao.getOne(userId);
 	}
 
 	@Override
 	public User addUser(User user) {
-		list.add(user);		
-		return user;
+		return userdao.save(user);
 	}
+
+	@Override
+	public List<User> getUsers() {		
+		return userdao.findAll();
+	}
+
+	
 
 }

@@ -34,6 +34,7 @@ public class MyController {
 		return this.userService.getUser(Long.parseLong(userId));	
 	}
 	
+	// Use to add new user 
 	@PostMapping("/addUser")
 	public User addUser(@RequestBody User user) {
 		return this.userService.addUser(user);
